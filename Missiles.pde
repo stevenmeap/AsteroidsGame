@@ -68,7 +68,7 @@ public class Missiles extends Entity {
               visible = false;
               ship.setScore(ship.getScore() + 250);
             }
-          }else System.out.println("MISS");  
+          }
         }
         if (entities.get(i) instanceof Asteroid) {
           Asteroid asteroid = (Asteroid) entities.get(i);
