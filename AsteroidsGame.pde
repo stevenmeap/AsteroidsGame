@@ -114,7 +114,6 @@ public void spawnEnemies() {
   int aliens = getAliens();
   int asteroids = getAsteroids();
   if (time % 200 == 0  && time != 0 && aliens < 1) {
-    System.out.println("spawned");
     int corner = (int) (Math.random() * 4) + 1;
     System.out.println(corner);
     int bx = 100;
