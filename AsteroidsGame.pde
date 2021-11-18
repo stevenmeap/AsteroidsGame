@@ -115,7 +115,6 @@ public void spawnEnemies() {
   int asteroids = getAsteroids();
   if (time % 200 == 0  && time != 0 && aliens < 1) {
     int corner = (int) (Math.random() * 4) + 1;
-    System.out.println(corner);
     int bx = 100;
     int by = 100;
     switch(corner) {
@@ -123,20 +122,18 @@ public void spawnEnemies() {
       entities.add(new Alien((int) (bx), (int) (by), ship));
       break;
     case 2:
-      bx = 500;
+      bx = 400;
       entities.add(new Alien((int) (bx), (int) (by), ship));
       break;
     case 3:
-      by = 500;
+      by = 400;
       Alien alien = new Alien((int) (bx), (int) (by), ship);
-      System.out.println(alien.getShape());
-      ellipse (bx, by, 30, 30);
       entities.add(alien);
 
       break;
     case 4:
-      bx = 500;
-      by = 500;
+      bx = 400;
+      by = 400;
       entities.add(new Alien((int) (bx), (int) (by), ship));
       break;
     }
@@ -152,14 +149,14 @@ public void spawnEnemies() {
     case 1:
       break;
     case 2:
-      bx = 600;
+      bx = 400;
       break;
     case 3:
-      by = 600;
+      by = 400;
       break;
     case 4:
-      bx = 600;
-      by = 600;
+      bx = 400;
+      by = 400;
       break;
     }
     float rx =(float) Math.random() * 20;
