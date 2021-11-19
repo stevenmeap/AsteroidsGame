@@ -55,7 +55,7 @@ public class Entity {
       int b = yCorners[i];
       shape.vertex(x + a, y + b);
     }
-    shape.endShape(CLOSE);
+    shape.endShape();
   }
 
 
@@ -92,11 +92,6 @@ public class Entity {
     this.visible = visible;
   }
 
-
-  //PShape setters
-  protected void buildShape() {
-    shape = constructShape(shape);
-  }
 
 
 
