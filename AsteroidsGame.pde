@@ -11,7 +11,7 @@ private Sector sector;
 void setup() {
   size(400, 400, P2D);
  // ship = new SpaceShip(width/2, height/2);
-  entities = new ArrayList();
+ // entities = new ArrayList();
  // entities.add(new Asteroid(300, 300));
   sector = new Sector();
 
@@ -22,12 +22,12 @@ void setup() {
 
 void draw() {
   sector.updateBackGround();
-  if (ship.isVisible()) {
-    time++;
-  }
-  updateShapes();
-  update();
-  spawnEnemies();
+  //if (ship.isVisible()) {
+ //   time++;
+  //}
+  //updateShapes();
+ // update();
+ // spawnEnemies();
 }
 
 
