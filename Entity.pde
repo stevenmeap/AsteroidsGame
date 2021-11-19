@@ -47,7 +47,7 @@ public class Entity {
 
 
   //sets a given PShape
-  protected PShape constructShape() {
+  protected void constructShape() {
     shape = createShape();
     shape.beginShape();
     for (int i = 0; i < xCorners.length; i++) {
@@ -56,7 +56,6 @@ public class Entity {
       shape.vertex(x + a, y + b);
     }
     shape.endShape(CLOSE);
-    return shape;
   }
 
 
