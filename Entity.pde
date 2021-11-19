@@ -51,9 +51,9 @@ public class Entity {
     shape = createShape();
     shape.beginShape();
     for (int i = 0; i < xCorners.length; i++) {
-      int x = xCorners[i];
-      int y = yCorners[i];
-      shape.vertex(x + this.x, y + this.y);
+      int a = xCorners[i];
+      int b = yCorners[i];
+      shape.vertex(x + a, y + b);
     }
     shape.endShape(CLOSE);
     return shape;
