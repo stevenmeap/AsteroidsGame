@@ -100,9 +100,6 @@ public class Entity {
   }
 
 
-  protected void buildShape(int r, int g, int b) {
-    shape = constructShape(shape, r, g, b);
-  }
 
   //getters for ship acceleration
   public float getAccelerationX() {
