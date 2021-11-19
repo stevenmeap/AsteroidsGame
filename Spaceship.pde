@@ -18,8 +18,8 @@ public class SpaceShip extends Entity {
     visible = true;
     score = 0;
     jump = true;
-    shape.setFill(color(255, 255, 255));
-    shape.setStroke(color(0, 0, 0));
+    //shape.setFill(color(255, 255, 255));
+   // shape.setStroke(color(0, 0, 0));
   }
 
   //moves the ship, should be called every draw() call
@@ -71,7 +71,7 @@ public class SpaceShip extends Entity {
     checkColliding();
   }
 
-
+/*
   private void checkColliding() {
     for (int i = 0; i < entities.size(); i++) {
       if (!(entities.get(i) instanceof Asteroid))
@@ -85,6 +85,7 @@ public class SpaceShip extends Entity {
       }
     }
   }
+  */
 
 
 
