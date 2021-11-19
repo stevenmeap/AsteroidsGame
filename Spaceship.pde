@@ -1,11 +1,11 @@
 public class SpaceShip extends Entity {
 
-  private float angle = 0.0; //rotation
+  private float angle; //rotation
 
 
   private int score;
 
-  private long cooldown = 0; // time on shooting cooldown
+  private long cooldown; // time on shooting cooldown
   private boolean cd;
 
   private boolean jump;
@@ -18,6 +18,8 @@ public class SpaceShip extends Entity {
     visible = true;
     score = 0;
     jump = true;
+    jumpcooldown = 0;
+    cooldown = 0;
     //shape.setFill(color(255, 255, 255));
    // shape.setStroke(color(0, 0, 0));
   }
@@ -102,6 +104,7 @@ public class SpaceShip extends Entity {
   */
 
   //updates acceleration values, called  in Main class
+  /*
   public void move(int dir) {
     if (dir == 1) {
       accelerationY += Math.sin(angle) * 0.05;
@@ -112,6 +115,7 @@ public class SpaceShip extends Entity {
       accelerationX -= Math.cos(angle) * 0.05;
     }
   }
+  */
 
   //sets ship location to inputed x, y values and resets acceleratiion valuezs
   /*
@@ -143,6 +147,7 @@ public class SpaceShip extends Entity {
   // builds the PShape object
 
   //updates angle of rotation, called in Main class
+  /*
   public void update(int key) {
     switch(key) {
     case 69:
@@ -153,6 +158,7 @@ public class SpaceShip extends Entity {
       break;
     }
   }
+  */
 
 
 
