@@ -67,7 +67,7 @@ public class SpaceShip extends Entity {
       shape.setVertex(i, vector);
     }
     setCenter();
-    rotate(angle);
+    rot(angle);
     checkColliding();
   }
 
