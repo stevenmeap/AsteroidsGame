@@ -59,32 +59,6 @@ public class Entity {
     return shape;
   }
 
-  //sets a given PShape, allows for use of external integer arrays
-  protected PShape constructShape(PShape shape, int[] xc, int[] yc) {
-    shape = createShape();
-    shape.beginShape();
-    for (int i = 0; i < xc.length; i++) {
-      int x = xc[i];
-      int y = yc[i];
-      shape.vertex(x + this.x, y + this.y);
-    }
-    shape.endShape(CLOSE);
-    return shape;
-  }
-
-  //sets a given PShape and colors it with inputted values
-  protected PShape constructShape(PShape shape, int r, int g, int b) {
-    shape = createShape();
-    shape.beginShape();
-    for (int i = 0; i < xCorners.length; i++) {
-      int x = xCorners[i];
-      int y = yCorners[i];
-      shape.vertex(x + this.x, y + this.y);
-    }
-    shape.fill(r, g, b);
-    shape.endShape(CLOSE);
-    return shape;
-  }
 
   // sets starting location for object
   public void setLocation(int x, int y) {
