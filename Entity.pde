@@ -8,6 +8,7 @@ public class Entity {
 
   protected int x, y;
   protected float centerX, centerY;
+  protected float accelerationX, accelerationY;
 
 
 
@@ -45,7 +46,7 @@ public class Entity {
 
 
 
-  //sets a given PShape 
+  //sets a given PShape
   protected PShape constructShape(PShape shape) {
     shape = createShape();
     shape.beginShape();
@@ -57,7 +58,7 @@ public class Entity {
     shape.endShape(CLOSE);
     return shape;
   }
-  
+
   //sets a given PShape, allows for use of external integer arrays
   protected PShape constructShape(PShape shape, int[] xc, int[] yc) {
     shape = createShape();
@@ -123,9 +124,23 @@ public class Entity {
   protected void buildShape() {
     shape = constructShape(shape);
   }
-  
- 
+
+
   protected void buildShape(int r, int g, int b) {
     shape = constructShape(shape, r, g, b);
+  }
+
+  //getters for ship acceleration
+  public float getAccelerationX() {
+    return accelerationX;
+  }
+  public float getAccelerationY() {
+    return accelerationY;
+  }
+   //displays the shape
+  public void display() {
+    pushMatrix();
+    shape(shape);
+    popMatrix();
   }
 }
