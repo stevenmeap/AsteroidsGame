@@ -1,4 +1,4 @@
-public SpaceShip ship;
+//public SpaceShip ship;
 
 
 //public ArrayList<Entity> entities;
@@ -10,7 +10,7 @@ private Sector sector;
 
 void setup() {
   size(400, 400, P2D);
-  ship = new SpaceShip(width/2, height/2);
+  Entity entity = new Entity(5,5);
  // entities = new ArrayList();
  // entities.add(new Asteroid(300, 300));
   sector = new Sector();
