@@ -2,14 +2,12 @@ public class SpaceShip extends Entity {
 
   private float angle = 0.0; //rotation
 
-  private double accelerationX = 0; //speed x
-  private double accelerationY = 0; //speed y
-  
+
   private int score;
 
   private long cooldown = 0; // time on shooting cooldown
   private boolean cd;
-  
+
   private boolean jump;
   private long jumpcooldown;
 
@@ -20,8 +18,8 @@ public class SpaceShip extends Entity {
     visible = true;
     score = 0;
     jump = true;
-    shape.setFill(color(255,255,255));
-    shape.setStroke(color(0,0,0));
+    shape.setFill(color(255, 255, 255));
+    shape.setStroke(color(0, 0, 0));
   }
 
   //moves the ship, should be called every draw() call
@@ -67,7 +65,7 @@ public class SpaceShip extends Entity {
         vector.y = tall + yCorners[i];
       else vector.y += accelerationY;
       shape.setVertex(i, vector);
-    }  
+    }
     setCenter();
     rotate(angle);
     checkColliding();
@@ -76,8 +74,8 @@ public class SpaceShip extends Entity {
 
   private void checkColliding() {
     for (int i = 0; i < entities.size(); i++) {
-      if(!(entities.get(i) instanceof Asteroid))
-      continue;
+      if (!(entities.get(i) instanceof Asteroid))
+        continue;
       Asteroid asteroid = (Asteroid) entities.get(i);
       if (dist(asteroid.getCenterX(), asteroid.getCenterY(), centerX, centerY) < utils.getWidth(asteroid.getShape())
         && dist(asteroid.getCenterX(), asteroid.getCenterY(), centerX, centerY) < utils.getHeight(asteroid.getShape())) {
@@ -91,12 +89,14 @@ public class SpaceShip extends Entity {
 
 
   //fires a missile class, called in Main class
+  /*
   public void shoot() {
     if (cd)
       return;
     cd = true;
     entities.add(new Missiles((int)centerX, (int) centerY, 0, 255, 0, angle, this));
   }
+  */
 
   //updates acceleration values, called  in Main class
   public void move(int dir) {
@@ -109,10 +109,10 @@ public class SpaceShip extends Entity {
       accelerationX -= Math.cos(angle) * 0.05;
     }
   }
-   
+
   //sets ship location to inputed x, y values and resets acceleratiion valuezs
-  public void teleport(int x, int y){
-    for(int i = 0; i < shape.getVertexCount(); i++){
+  public void teleport(int x, int y) {
+    for (int i = 0; i < shape.getVertexCount(); i++) {
       PVector vec = shape.getVertex(i);
       vec.x = x + xCorners[i];
       vec.y = y + yCorners[i];
@@ -149,57 +149,44 @@ public class SpaceShip extends Entity {
     }
   }
 
-  //getters for ship acceleration
-  public double getAccelerationX() {
-    return accelerationX;
-  }
-  public double getAccelerationY() {
-    return accelerationY;
-  }
-  
+
+
   //getters and setters for missile cooldown
-  public long getCooldown(){
+  public long getCooldown() {
     return cooldown;
   }
-  public void setCooldown(long cd){
+  public void setCooldown(long cd) {
     cooldown = cd;
   }
-  public void incrementCooldown(int increment){
+  public void incrementCooldown(int increment) {
     cooldown += increment;
   }
-  public boolean onCooldown(){
+  public boolean onCooldown() {
     return cd;
   }
-  public void setOnCooldown(boolean cd){
+  public void setOnCooldown(boolean cd) {
     this.cd = cd;
   }
-  
+
   //getters and setters for ship score
-  public int getScore(){
+  public int getScore() {
     return score;
   }
-  public void setScore(int score){
+  public void setScore(int score) {
     this.score = score;
   }
-  
+
   //getters and setters for hyperspace cooldown values
-  public boolean canJump(){
+  public boolean canJump() {
     return jump;
   }
-  public long getJumpCooldown(){
+  public long getJumpCooldown() {
     return jumpcooldown;
   }
-  public void setCanJump(boolean jump){
+  public void setCanJump(boolean jump) {
     this.jump = jump;
   }
-  public void setJumpCooldown(long cd){
+  public void setJumpCooldown(long cd) {
     jumpcooldown = cd;
-  }
-
-  //displays the shape
-  public void display() {
-    pushMatrix();
-    shape(shape);
-    popMatrix();
   }
 }
