@@ -14,12 +14,12 @@ public class Entity {
 
   protected boolean visible;
 
-  protected ShapeUtils utils;
+
 
   public Entity(int x, int y) {
     this.x = x;
     this.y = y;
-    utils = new ShapeUtils();
+
   }
 
 
@@ -107,7 +107,7 @@ public class Entity {
     return centerY;
   }
 
-  public boolean isVisible() {
+  public boolean getVisible() {
     return visible;
   }
   public PShape getShape() {
@@ -115,7 +115,7 @@ public class Entity {
   }
 
   //setter
-  public void setVisible(boolean visible) {
+  public void setVisibility(boolean visible) {
     this.visible = visible;
   }
 
