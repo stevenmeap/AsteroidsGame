@@ -68,7 +68,7 @@ public class SpaceShip extends Entity {
     }
     setCenter();
     rot(angle);
-    checkColliding();
+    //checkColliding();
   }
 
 /*
