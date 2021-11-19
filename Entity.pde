@@ -47,7 +47,7 @@ public class Entity {
 
 
   //sets a given PShape
-  protected PShape constructShape(PShape shape) {
+  protected PShape constructShape() {
     shape = createShape();
     shape.beginShape();
     for (int i = 0; i < xCorners.length; i++) {
