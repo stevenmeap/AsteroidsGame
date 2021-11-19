@@ -23,6 +23,7 @@ public class SpaceShip extends Entity {
   }
 
   //moves the ship, should be called every draw() call
+  /*
   public void drift() {
     shape.resetMatrix();
     boolean setX0 = false;
@@ -70,6 +71,7 @@ public class SpaceShip extends Entity {
     rot(angle);
     //checkColliding();
   }
+  */
 
 /*
   private void checkColliding() {
@@ -112,6 +114,7 @@ public class SpaceShip extends Entity {
   }
 
   //sets ship location to inputed x, y values and resets acceleratiion valuezs
+  /*
   public void teleport(int x, int y) {
     for (int i = 0; i < shape.getVertexCount(); i++) {
       PVector vec = shape.getVertex(i);
@@ -122,6 +125,7 @@ public class SpaceShip extends Entity {
       shape.setVertex(i, vec);
     }
   }
+  */
 
   //initializes the ship PShape object
   private void initShip() {
