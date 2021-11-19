@@ -1,4 +1,4 @@
-public SpaceShip ship;
+//public SpaceShip ship;
 
 
 public ArrayList<Entity> entities;
