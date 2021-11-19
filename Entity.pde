@@ -24,7 +24,7 @@ public class Entity {
 
 
   //rotates the shape to the appropriate angle, called in drift()
-  protected void rotate(float angle) {
+  protected void rot(float angle) {
     setCenter();
     shape.translate(-centerX, -centerY);
     shape.rotate(angle);
