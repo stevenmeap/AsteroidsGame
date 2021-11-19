@@ -10,9 +10,9 @@ private Sector sector;
 
 void setup() {
   size(400, 400, P2D);
-  ship = new SpaceShip(width/2, height/2);
+ // ship = new SpaceShip(width/2, height/2);
   entities = new ArrayList();
-  entities.add(new Asteroid(300, 300));
+ // entities.add(new Asteroid(300, 300));
   sector = new Sector();
 
   tall = height;
