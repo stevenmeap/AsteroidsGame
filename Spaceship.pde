@@ -20,6 +20,8 @@ public class SpaceShip extends Entity {
     jump = true;
     jumpcooldown = 0;
     cooldown = 0;
+    cd = false;
+    angle = 0.0;
     //shape.setFill(color(255, 255, 255));
    // shape.setStroke(color(0, 0, 0));
   }
