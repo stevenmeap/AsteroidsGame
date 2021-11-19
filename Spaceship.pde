@@ -39,6 +39,6 @@ public class SpaceShip extends Entity {
     yCorners[1] = 0;
     xCorners[2] = -15;
     yCorners[2] = -10;
-    buildShape();
+    //buildShape();
   }
 }
