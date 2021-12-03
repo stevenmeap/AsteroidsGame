@@ -21,9 +21,15 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-  //updateShapes();
+  updateShapes();
   update();
-    if (ship.isVisible()) {
+  spawnEnemies();
+}
+
+
+
+public void updateShapes() {
+  if (ship.isVisible()) {
     if (ship.onCooldown()) {
       ship.incrementCooldown(1);
       if (ship.getCooldown() > 5) {
@@ -33,11 +39,12 @@ public void draw() {
     }
     if (!ship.canJump()) {
       ship.setJumpCooldown(ship.getJumpCooldown() + 1);
-      if (ship.getJumpCooldown() > 100){
+      if (ship.getJumpCooldown() > 100) {
         ship.setCanJump(true);
         ship.setJumpCooldown(0);
       }
     }
+    // update();
     ship.drift();
     text("Score: " + ship.getScore(), 40, 50);
     text("Sector: " + sector.getName(), 40, 20);
@@ -48,13 +55,6 @@ public void draw() {
     time = 0;
     return;
   }
-  //spawnEnemies();
-}
-
-
-
-public void updateShapes() {
-
 
   //loops through all game entities (excluding ship entity)
   for (int i = 0; i < entities.size(); i++) {
@@ -177,7 +177,6 @@ public void keyReleased() {
   rotCode = -1;
 }
 public void keyPressed() {
-
 
   switch(keyCode) {
   case 68:
