@@ -21,15 +21,9 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-  updateShapes();
+  //updateShapes();
   update();
-  spawnEnemies();
-}
-
-
-
-public void updateShapes() {
-  if (ship.isVisible()) {
+    if (ship.isVisible()) {
     if (ship.onCooldown()) {
       ship.incrementCooldown(1);
       if (ship.getCooldown() > 5) {
@@ -54,6 +48,13 @@ public void updateShapes() {
     time = 0;
     return;
   }
+  //spawnEnemies();
+}
+
+
+
+public void updateShapes() {
+
 
   //loops through all game entities (excluding ship entity)
   for (int i = 0; i < entities.size(); i++) {
