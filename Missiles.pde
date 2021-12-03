@@ -1,8 +1,5 @@
 public class Missiles extends Entity {
-  private int red, green, blue;
-  private double accelerationX;
-  private double accelerationY;
-  private float angle;
+
   private Entity shooter;
 
   private SpaceShip spaceship;
@@ -10,60 +7,50 @@ public class Missiles extends Entity {
 
 
 
-  public Missiles(int x, int y, int red, int green, int blue, float angle, Entity shooter) {
+  public Missiles(int x, int y, float angle, Entity shooter) {
     super(x, y);
     corners = 4;
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
     initSprite();
     this.angle = angle;
     this.shooter = shooter;
-    rotate(angle);
+    this.angle = angle;
     visible = true;
+
     if (shooter instanceof SpaceShip) {
       spaceship = (SpaceShip) shooter;
-      accelerationX = spaceship.getAccelerationX();
-      accelerationY = spaceship.getAccelerationY();
-    } else if (shooter instanceof Alien) {
-      alien = (Alien) shooter;
-      shape.setFill(color(255,102, 102));
-      
+      accelerationX = (float) ( Math.cos(angle) * 2.5);
+      accelerationY = (float) ( Math.sin(angle) * 2.5);
     }
-    shape.setStroke(color(0,0,0));
+    if (shooter instanceof Alien) {
+      alien = (Alien) shooter;
+      accelerationX = (float) ( Math.cos(angle) * 2.5);
+      accelerationY = (float) ( Math.sin(angle) * 2.5);
+      fill = color(255, 100, 100);
+    }
+    noFill = false;
   } 
 
-
   public void move() {
-    shape.resetMatrix();
-    for (int i = 0; i < shape.getVertexCount(); i++) {
-      PVector vector = shape.getVertex(i);
-
-      vector.x += (Math.cos(angle) * 2.5);
-      vector.y += (Math.sin(angle) * 2.5);
-      shape.setVertex(i, vector);
+    if (x > width || x < 0 || y < 0 ||y > height ) {
+      visible = false;
     }
-    rotate(angle); 
     updateLists();
+    if (visible) {
+      x += accelerationX;
+      y += accelerationY;
+    }
   }
 
-
-  public void display() {
-    pushMatrix();
-    shape(shape);
-    popMatrix();
-  }
 
   private void updateLists() {
     if (centerX > width || centerX < 0 || centerY > height || centerY < 0)
       visible = false;
     if (spaceship != null) {
       for (int i = 0; i < entities.size(); i++) {
-        if(entities.get(i) instanceof Alien){
+        if (entities.get(i) instanceof Alien) {
           Alien alien = (Alien) entities.get(i);
-          if(dist(alien.getCenterX(), alien.getCenterY(), centerX, centerY) < utils.getWidth(alien.getShape())
-          && dist(alien.getCenterX(), alien.getCenterY(), centerX, centerY) < utils.getHeight(alien.getShape())){
-            if(visible){
+          if (colliding(alien, this)) {
+            if (visible) {
               alien.kill();
               visible = false;
               ship.setScore(ship.getScore() + 250);
@@ -72,15 +59,14 @@ public class Missiles extends Entity {
         }
         if (entities.get(i) instanceof Asteroid) {
           Asteroid asteroid = (Asteroid) entities.get(i);
-          if (dist(asteroid.getCenterX(), asteroid.getCenterY(), centerX, centerY) < utils.getWidth(asteroid.getShape())
-            && dist(asteroid.getCenterX(), asteroid.getCenterY(), centerX, centerY) < utils.getHeight(asteroid.getShape())) {
+          if (colliding(asteroid, this)) {
             if (!visible)
               return;
             visible = false;
             asteroid.setVisible(false);
             if (!asteroid.isShard()) {
-              entities.add(new Asteroid((int) (asteroid.getCenterX() + Math.random() * 10), (int)( asteroid.getCenterY()+ Math.random() * 10), true));
-              entities.add(new Asteroid((int) (asteroid.getCenterX() + Math.random() * 10), (int)( asteroid.getCenterY()+ Math.random() * 10), true));
+              entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
+              entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
               if (ship != null) spaceship.setScore(spaceship.getScore() + 100);
               return;
             } else if (ship != null) ship.setScore(ship.getScore() + 50);
@@ -90,8 +76,8 @@ public class Missiles extends Entity {
     }
 
     if (alien != null) {
-     
-      if (dist(ship.getCenterX(), ship.getCenterY(), centerX, centerY) < 10) {
+
+      if (dist(ship.getX(), ship.getY(), x, y) < 10) {
         ship.setVisible(false);
       }
     }
@@ -111,8 +97,6 @@ public class Missiles extends Entity {
     yCorners[2] = -2;
     xCorners[3] = -5;
     yCorners[3] = -2;
-    buildShape(red, green, blue);
-    shape.setFill(color(255,255,255));
   }
   /*
   SETTERS
