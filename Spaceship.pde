@@ -1,13 +1,14 @@
 public class SpaceShip extends Entity {
 
-  private float angle; //rotation
+  //rotation
 
 
+  
   private int score;
 
-  private long cooldown; // time on shooting cooldown
+  private long cooldown = 0; // time on shooting cooldown
   private boolean cd;
-
+  
   private boolean jump;
   private long jumpcooldown;
 
@@ -18,16 +19,54 @@ public class SpaceShip extends Entity {
     visible = true;
     score = 0;
     jump = true;
-    jumpcooldown = 0;
-    cooldown = 0;
-    cd = false;
-    angle = 0.0;
-    //shape.setFill(color(255, 255, 255));
-   // shape.setStroke(color(0, 0, 0));
   }
 
 
 
+
+  private void checkColliding() {
+    for (int i = 0; i < entities.size(); i++) {
+      if(!(entities.get(i) instanceof Asteroid))
+      continue;
+      Asteroid asteroid = (Asteroid) entities.get(i);
+      if (colliding(asteroid, this)) {
+        visible = false;
+        asteroid.setVisible(false);
+        return;
+      }
+    }
+  }
+
+
+
+  //fires a missile class, called in Main class
+  public void shoot() {
+    if (cd)
+      return;
+    cd = true;
+    entities.add(new Missiles((int)x, (int)y, angle, this));
+  }
+
+  //updates acceleration values, called  in Main class
+  public void move(int dir) {
+    if (dir == 1) {
+      accelerationY += Math.sin(angle) * 0.05;
+      accelerationX += Math.cos(angle) * 0.05;
+    }
+    if (dir == 3) {
+      accelerationY -= Math.sin(angle) * 0.05;
+      accelerationX -= Math.cos(angle) * 0.05;
+    }
+  }
+   
+  //sets ship location to inputed x, y values and resets acceleratiion valuezs
+  public void teleport(int x, int y){
+    this.x = x;
+    this.y = y;
+    accelerationX = 0;
+    accelerationY = 0;
+    angle = 0;
+  }
 
   //initializes the ship PShape object
   private void initShip() {
@@ -39,6 +78,70 @@ public class SpaceShip extends Entity {
     yCorners[1] = 0;
     xCorners[2] = -15;
     yCorners[2] = -10;
-    constructShape();
+   // buildShape();
   }
+
+  // builds the PShape object
+
+  //updates angle of rotation, called in Main class
+  public void update(int key) {
+    switch(key) {
+    case 69:
+      angle += 0.1;
+      break;
+    case 81:
+      angle -= 0.1;
+      break;
+    }
+  }
+
+  //getters for ship acceleration
+  public float getAccelerationX() {
+    return accelerationX;
+  }
+  public float getAccelerationY() {
+    return accelerationY;
+  }
+  
+  //getters and setters for missile cooldown
+  public long getCooldown(){
+    return cooldown;
+  }
+  public void setCooldown(long cd){
+    cooldown = cd;
+  }
+  public void incrementCooldown(int increment){
+    cooldown += increment;
+  }
+  public boolean onCooldown(){
+    return cd;
+  }
+  public void setOnCooldown(boolean cd){
+    this.cd = cd;
+  }
+  
+  //getters and setters for ship score
+  public int getScore(){
+    return score;
+  }
+  public void setScore(int score){
+    this.score = score;
+  }
+  
+  //getters and setters for hyperspace cooldown values
+  public boolean canJump(){
+    return jump;
+  }
+  public long getJumpCooldown(){
+    return jumpcooldown;
+  }
+  public void setCanJump(boolean jump){
+    this.jump = jump;
+  }
+  public void setJumpCooldown(long cd){
+    jumpcooldown = cd;
+  }
+
+  //displays the shape
+
 }
