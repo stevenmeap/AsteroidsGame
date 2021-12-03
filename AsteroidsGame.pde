@@ -38,7 +38,6 @@ public void updateShapes() {
       }
     }
     if (!ship.canJump()) {
-      System.out.println(ship.getJumpCooldown());
       ship.setJumpCooldown(ship.getJumpCooldown() + 1);
       if (ship.getJumpCooldown() > 100){
         ship.setCanJump(true);
