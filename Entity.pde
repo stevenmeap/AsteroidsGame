@@ -1,61 +1,103 @@
 public class Entity {
-  protected PShape shape;
-
   protected int corners;
   protected int[] xCorners;
   protected int[] yCorners;
   protected int speed;
 
-  protected int x, y;
+  protected float x, y;
   protected float centerX, centerY;
-  protected float accelerationX, accelerationY;
+  protected float angle = 0.0; 
 
 
-
+  protected float accelerationX;
+  protected float accelerationY;
   protected boolean visible;
 
+  protected boolean noFill;
+  
+  protected color fill;
 
 
   public Entity(int x, int y) {
+    fill = color(255,255,255);
+    noFill = false;
     this.x = x;
     this.y = y;
-
   }
 
-
-  //rotates the shape to the appropriate angle, called in drift()
-  protected void rot(float angle) {
-    setCenter();
-    shape.translate(-centerX, -centerY);
-    shape.rotate(angle);
-    shape.translate(centerX, centerY);
-  }
-
-
-  //updates the center of the shape, used for rotations + shooting center
-  protected void setCenter() {
-    PVector vec0 = shape.getVertex(0);
-    PVector vec1 = shape.getVertex(1);
-    PVector vec2 = shape.getVertex(2);
-    float dx = (vec0.x + vec2.x)/2;
-    float dy = vec1.y;
-    float midX = (vec1.x + dx)/2;
-    centerX = midX;
-    centerY = dy;
-  }
-
-
-
-  //sets a given PShape
-  protected void constructShape() {
-    shape = createShape();
-    shape.beginShape();
-    for (int i = 0; i < xCorners.length; i++) {
-      int a = xCorners[i];
-      int b = yCorners[i];
-      shape.vertex(x + a, y + b);
+  //sets a given PShape 
+  protected void drawShape() {
+    move();
+    pushMatrix();
+    translate(x, y);
+    rotate(angle);
+    beginShape();
+    if (noFill) {
+      noFill();
+      stroke(255);
+    } else {
+      fill(fill);
+      stroke(0);
     }
-    shape.endShape();
+    for (int i = 0; i < xCorners.length; i++) {
+      int x = xCorners[i];
+      int y = yCorners[i];
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+    translate(-x, -y);
+    popMatrix();
+  }
+  
+    protected void drawShape(int[] xc, int[] yc, float dx, float dy) {
+    move();
+    pushMatrix();
+    translate(dx, dy);
+    rotate(angle);
+    beginShape();
+    if (noFill) {
+      noFill();
+      stroke(255);
+    } else {
+      fill(fill);
+      stroke(0);
+    }
+    for (int i = 0; i < xc.length; i++) {
+      int x = xc[i];
+      int y = yc[i];
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+    translate(-dx, -dy);
+    popMatrix();
+  }
+  
+  
+  protected boolean colliding(Entity entity1, Entity entity2) {
+    return dist(entity1.getX(), entity1.getY(), entity2.getX(), entity2.getY()) < entity1.getAverageBounds();
+  }
+
+
+  public void move() {
+    if (x > width) {
+      x = 1;
+      return;
+    } else if (x < 0) {
+      x = width -1;
+      return;
+    }
+    if (y > height) {
+      y = 1;
+      return;
+    } else if ( y < 0) {
+      y = height - 1;
+      return;
+    }
+    x += accelerationX;
+    y += accelerationY;
+  }
+  public void drift() {
+    drawShape();
   }
 
 
@@ -67,45 +109,41 @@ public class Entity {
 
 
   //getters
-  public int getX() {
+  public float getX() {
     return x;
   }
-  public int getY() {
+  public float getY() {
     return y;
   }
-  public float getCenterX() {
-    return centerX;
-  }
-  public float getCenterY() {
-    return centerY;
-  }
 
-  public boolean getVisible() {
+  public boolean isVisible() {
     return visible;
   }
-  public PShape getShape() {
-    return shape;
+  public float getWidth() {
+    int maxX = 0;
+    for (int i : xCorners) {
+      if (i < 0)
+        i *= -1;
+      maxX = Math.max(maxX, i);
+    }
+    return maxX;
+  }
+  public float getHeight() {
+    int maxY = 0;
+    for (int i : yCorners) {
+      if (i < 0)
+        i *= -1;
+      maxY = Math.max(maxY, i);
+    }
+    return maxY;
+  }
+  public float getAverageBounds() {
+    return (getWidth() + getHeight()) / 2;
   }
 
   //setter
-  public void setVisibility(boolean visible) {
+  public void setVisible(boolean visible) {
     this.visible = visible;
   }
 
-
-
-
-  //getters for ship acceleration
-  public float getAccelerationX() {
-    return accelerationX;
-  }
-  public float getAccelerationY() {
-    return accelerationY;
-  }
-   //displays the shape
-  public void display() {
-    pushMatrix();
-    shape(shape);
-    popMatrix();
-  }
 }
