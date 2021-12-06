@@ -57,7 +57,7 @@ private void updateShip() {
    */
 }
 
-
+/*
 public void updateShapes() {
 
   updateShip();
@@ -222,3 +222,4 @@ public void keyPressed() {
     break;
   }
 }
+*/
