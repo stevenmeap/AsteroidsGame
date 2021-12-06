@@ -45,8 +45,8 @@ private void updateShip() {
   }
   // update();
   ship.drift();
-  text("Score: " + ship.getScore(), 40, 50);
-  text("Sector: " + sector.getName(), 40, 20);
+ // text("Score: " + ship.getScore(), 40, 50);
+ // text("Sector: " + sector.getName(), 40, 20);
   /*
   if (ship.isVisible()) {
    }else {
