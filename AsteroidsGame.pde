@@ -57,7 +57,7 @@ private void updateShip() {
    */
 }
 
-/*
+
 public void updateShapes() {
 
   updateShip();
@@ -67,14 +67,14 @@ public void updateShapes() {
     Entity e = entities.get(i);
     if (e instanceof Missiles) {
       Missiles missile = (Missiles) e;
-      if (missile.isVisible()) {
+      if (missile.getVisible()) {
         missile.drift();
       } else entities.remove(i);
     }
     //asteroids
     if (e instanceof Asteroid) {
       Asteroid asteroid = (Asteroid) e;
-      if (asteroid.isVisible()) {
+      if (asteroid.getVisible()) {
         asteroid.updateAngle();
         asteroid.drift();
       } else entities.remove(i);
@@ -86,9 +86,9 @@ public void updateShapes() {
         alien.deadMove();
         alien.setDeadTime(alien.getDeathTime() + 1);
         if (alien.getDeathTime() > 60)
-          alien.setVisible(false);
+          alien.setVisibility(false);
       }
-      if (alien.isVisible()) {
+      if (alien.getVisible()) {
         alien.display();
         alien.drift();
       } else entities.remove(i);
@@ -202,7 +202,7 @@ public void keyPressed() {
     ship.setOnCooldown(true);
     break;
   case 82:
-    if (!ship.isVisible()) {
+    if (!ship.getVisible()) {
       ship = new SpaceShip(width/2, height/2);
       entities = new ArrayList();
       entities.add(new Asteroid(300, 300));
@@ -211,7 +211,7 @@ public void keyPressed() {
     }
     break;
   case 72:
-    if (ship.isVisible()) {
+    if (ship.getVisible()) {
       if (ship.canJump()) {
         ship.teleport((int) (Math.random() * 100 + width/4), (int) (Math.random() * 100 + height / 4));
         ship.setCanJump(false);
@@ -222,4 +222,3 @@ public void keyPressed() {
     break;
   }
 }
-*/
