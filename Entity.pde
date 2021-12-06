@@ -5,7 +5,6 @@ public class Entity {
   protected int speed;
 
   protected float x, y;
-  protected float centerX, centerY;
   protected float angle = 0.0; 
 
 
@@ -118,7 +117,7 @@ public class Entity {
     return y;
   }
 
-  public boolean isVisible() {
+  public boolean getVisible() {
     return visible;
   }
   public float getWidth() {
@@ -144,7 +143,7 @@ public class Entity {
   }
 
   //setter
-  public void setVisible(boolean visible) {
+  public void setVisibility(boolean visible) {
     this.visible = visible;
   }
 }
