@@ -49,6 +49,7 @@ public class SpaceShip extends Entity {
 
   //updates acceleration values, called  in Main class
   public void move(int dir) {
+    checkColliding();
     if (dir == 1) {
       accelerationY += Math.sin(angle) * 0.05;
       accelerationX += Math.cos(angle) * 0.05;
