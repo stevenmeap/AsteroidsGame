@@ -26,8 +26,6 @@ public class Alien extends Entity {
 
   //sets the destination or base acceleration value for the given Alien
   private void setTarget() {
-    float dx = 300;
-    float dy = 300;
     accelerationX = (float) Math.cos(360) * 1;
     accelerationY = (float) Math.sin(350) * 1;
     if (x >= 500)
@@ -39,15 +37,11 @@ public class Alien extends Entity {
     drawShape();
     float inx = dead ? dx : x;
     float iny = dead ? dy : y;
-    drawShape(aCornersX, aCornersY, inx, iny);
+    drawAddon(aCornersX, aCornersY, inx, iny);
     shoot();
   }
-
-  //updates acceleration values for PShape, reversing direction as needed
-  private void updateAcceleration() {
-  }
-
-  //adds acceleration values to given PShapes updated their locations
+  
+  //adds acceleration values to the alien
   public void move() {
     if (x > width) {
       accelerationX *= -1;
@@ -65,7 +59,6 @@ public class Alien extends Entity {
     }
     if (dead)
       return;
-    updateAcceleration();
     x += accelerationX;
     y += accelerationY;
   }
@@ -118,7 +111,7 @@ public class Alien extends Entity {
 
 
 
-  //initializes alien PShape objects
+  //initializes alien 
   private void initAlien() {
     xCorners = new int[10];
     yCorners = new int[10];
@@ -208,7 +201,7 @@ public class Alien extends Entity {
     this.deadTime = deadTime;
   }
 
-  //displays alien PShape objects
+  //displays alien
   public void display() {
     pushMatrix();
     noFill();
