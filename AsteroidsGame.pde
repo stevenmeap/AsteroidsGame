@@ -21,7 +21,7 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-  //updateShip();
+  updateShip();
   // updateShapes();
   //update();
   //spawnEnemies();
@@ -29,32 +29,34 @@ public void draw() {
 
 
 private void updateShip() {
-  if (ship.isVisible()) {
-    if (ship.onCooldown()) {
-      ship.incrementCooldown(1);
-      if (ship.getCooldown() > 5) {
-        ship.setOnCooldown(false);
-        ship.setCooldown(0);
-      }
+  if (ship.onCooldown()) {
+    ship.incrementCooldown(1);
+    if (ship.getCooldown() > 5) {
+      ship.setOnCooldown(false);
+      ship.setCooldown(0);
     }
-    if (!ship.canJump()) {
-      ship.setJumpCooldown(ship.getJumpCooldown() + 1);
-      if (ship.getJumpCooldown() > 100) {
-        ship.setCanJump(true);
-        ship.setJumpCooldown(0);
-      }
-    }
-    // update();
-    ship.drift();
-    text("Score: " + ship.getScore(), 40, 50);
-    text("Sector: " + sector.getName(), 40, 20);
-  } else {
-    text("Ship Destroyed!", width/2 - 50, height/2);
-    text("Final Score: " + ship.getScore(), width/2 - 50, height/2 - 100);
-    entities.clear();
-    time = 0;
-    return;
   }
+  if (!ship.canJump()) {
+    ship.setJumpCooldown(ship.getJumpCooldown() + 1);
+    if (ship.getJumpCooldown() > 100) {
+      ship.setCanJump(true);
+      ship.setJumpCooldown(0);
+    }
+  }
+  // update();
+  ship.drift();
+  text("Score: " + ship.getScore(), 40, 50);
+  text("Sector: " + sector.getName(), 40, 20);
+  /*
+  if (ship.isVisible()) {
+   }else {
+   text("Ship Destroyed!", width/2 - 50, height/2);
+   text("Final Score: " + ship.getScore(), width/2 - 50, height/2 - 100);
+   entities.clear();
+   time = 0;
+   return;
+   }
+   */
 }
 
 
