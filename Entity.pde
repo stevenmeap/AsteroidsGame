@@ -21,6 +21,8 @@ public class Entity {
   public Entity(int x, int y) {
     fill = color(255, 255, 255);
     noFill = false;
+    accelerationX = 0;
+    accelerationY = 0;
     this.x = x;
     this.y = y;
   }
@@ -49,7 +51,7 @@ public class Entity {
     popMatrix();
   }
 
-  protected void drawShape(int[] xc, int[] yc, float dx, float dy) {
+  protected void drawAddon(int[] xc, int[] yc, float dx, float dy) {
     move();
     pushMatrix();
     translate(dx, dy);
