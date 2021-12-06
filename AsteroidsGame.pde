@@ -21,7 +21,7 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-  updateShip();
+  //updateShip();
   // updateShapes();
   //update();
   //spawnEnemies();
