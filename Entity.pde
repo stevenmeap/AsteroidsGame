@@ -14,11 +14,14 @@ public class Entity {
 
   protected boolean noFill;
 
-  protected color fill;
+  protected int r, g, b;
 
 
   public Entity(int x, int y) {
-    fill = color(255, 255, 255);
+    r = 255;
+    g = 255;
+    b = 255;
+    visible = true;
     noFill = false;
     accelerationX = 0;
     accelerationY = 0;
@@ -37,7 +40,7 @@ public class Entity {
       noFill();
       stroke(255);
     } else {
-      fill(fill);
+      fill(r,g,b);
       stroke(0);
     }
     for (int i = 0; i < xCorners.length; i++) {
@@ -60,7 +63,7 @@ public class Entity {
       noFill();
       stroke(255);
     } else {
-      fill(fill);
+      fill(r,g,b);
       stroke(0);
     }
     for (int i = 0; i < xc.length; i++) {
