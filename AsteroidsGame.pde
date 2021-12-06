@@ -21,14 +21,14 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-  updateShapes();
-  update();
-  spawnEnemies();
+  updateShip();
+  // updateShapes();
+  //update();
+  //spawnEnemies();
 }
 
 
-
-public void updateShapes() {
+private void updateShip() {
   if (ship.isVisible()) {
     if (ship.onCooldown()) {
       ship.incrementCooldown(1);
@@ -55,7 +55,12 @@ public void updateShapes() {
     time = 0;
     return;
   }
+}
 
+
+public void updateShapes() {
+
+  updateShip();
   //loops through all game entities (excluding ship entity)
   for (int i = 0; i < entities.size(); i++) {
     //missiles
@@ -90,6 +95,7 @@ public void updateShapes() {
     }
   }
 }
+
 
 private int getAsteroids() {
   int asteroids = 0;
