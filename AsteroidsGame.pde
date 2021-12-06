@@ -3,8 +3,6 @@ public SpaceShip ship;
 
 public ArrayList<Entity> entities;
 public static int time = 0;
-public static int wide;
-public static int tall;
 
 private Sector sector;
 
@@ -14,8 +12,6 @@ public void setup() {
   entities = new ArrayList();
   sector = new Sector();
 
-  tall = height;
-  wide = width;
 }
 
 
@@ -29,10 +25,26 @@ public void draw() {
 
 
 private void updateShip() {
+  /*
+  if (ship.onCooldown()) {
+    ship.incrementCooldown(1);
+    if (ship.getCooldown() > 5) {
+      ship.setOnCooldown(false);
+      ship.setCooldown(0);
+    }
+  }
+  if (!ship.canJump()) {
+    ship.setJumpCooldown(ship.getJumpCooldown() + 1);
+    if (ship.getJumpCooldown() > 100) {
+      ship.setCanJump(true);
+      ship.setJumpCooldown(0);
+    }
+  }
+  */
   // update();
   ship.drift();
- // text("Score: " + ship.getScore(), 40, 50);
- // text("Sector: " + sector.getName(), 40, 20);
+ //text("Score: " + ship.getScore(), 40, 50);
+  //text("Sector: " + sector.getName(), 40, 20);
   /*
   if (ship.isVisible()) {
    }else {
