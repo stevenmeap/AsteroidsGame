@@ -184,8 +184,4 @@ public class Asteroid extends Entity {
     xCorners[4] = -6;
     yCorners[4] = 0;
   }
-  private void shar3() {
-    xCorners = new int[6];
-    yCorners = new int[6];
-  }
 }
