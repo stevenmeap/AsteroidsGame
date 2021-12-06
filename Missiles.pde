@@ -65,7 +65,7 @@ public class Missiles extends Entity {
             if (!visible)
               return;
             visible = false;
-            asteroid.setVisibility(false);
+            asteroid.setVisible(false);
             if (!asteroid.isShard()) {
               entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
               entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
@@ -80,7 +80,7 @@ public class Missiles extends Entity {
     if (alien != null) {
 
       if (dist(ship.getX(), ship.getY(), x, y) < 10) {
-        ship.setVisibility(false);
+        ship.setVisible(false);
       }
     }
   }
