@@ -14,12 +14,12 @@ public class Entity {
   protected boolean visible;
 
   protected boolean noFill;
-  
+
   protected color fill;
 
 
   public Entity(int x, int y) {
-    fill = color(255,255,255);
+    fill = color(255, 255, 255);
     noFill = false;
     this.x = x;
     this.y = y;
@@ -48,8 +48,8 @@ public class Entity {
     translate(-x, -y);
     popMatrix();
   }
-  
-    protected void drawShape(int[] xc, int[] yc, float dx, float dy) {
+
+  protected void drawShape(int[] xc, int[] yc, float dx, float dy) {
     move();
     pushMatrix();
     translate(dx, dy);
@@ -71,8 +71,8 @@ public class Entity {
     translate(-dx, -dy);
     popMatrix();
   }
-  
-  
+
+
   protected boolean colliding(Entity entity1, Entity entity2) {
     return dist(entity1.getX(), entity1.getY(), entity2.getX(), entity2.getY()) < entity1.getAverageBounds();
   }
@@ -145,5 +145,4 @@ public class Entity {
   public void setVisible(boolean visible) {
     this.visible = visible;
   }
-
 }
