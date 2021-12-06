@@ -48,7 +48,7 @@ public class Entity {
       int y = yCorners[i];
       vertex(x, y);
     }
-    endShape();
+    endShape(CLOSE);
     translate(-x, -y);
     popMatrix();
   }
@@ -120,7 +120,7 @@ public class Entity {
     return y;
   }
 
-  public boolean getVisible() {
+  public boolean isVisible() {
     return visible;
   }
   public float getWidth() {
@@ -146,7 +146,7 @@ public class Entity {
   }
 
   //setter
-  public void setVisibility(boolean visible) {
+  public void setVisible(boolean visible) {
     this.visible = visible;
   }
 }
