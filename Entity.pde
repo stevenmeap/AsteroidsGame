@@ -45,7 +45,7 @@ public class Entity {
       int y = yCorners[i];
       vertex(x, y);
     }
-    endShape(CLOSE);
+    endShape();
     translate(-x, -y);
     popMatrix();
   }
