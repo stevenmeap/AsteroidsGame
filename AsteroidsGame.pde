@@ -159,9 +159,9 @@ public void spawnEnemies() {
       by = 400;
       break;
     }
-    float rx =(float) Math.random() * 20;
-    float ry =(float) Math.random() * 20;
-    entities.add(new Asteroid((int) (rx + bx), (int) (ry + by)));
+    float rx =(int) Math.random() * 20;
+    float ry =(int) Math.random() * 20;
+    entities.add(new Asteroid((rx + bx), (ry + by)));
   }
 }
 
