@@ -161,7 +161,7 @@ public void spawnEnemies() {
     }
     float rx =(int) Math.random() * 20;
     float ry =(int) Math.random() * 20;
-    entities.add(new Asteroid((rx + bx), (ry + by)));
+    entities.add(new Asteroid((int) (rx + bx), (int) (ry + by), false));
   }
 }
 
@@ -201,7 +201,7 @@ public void keyPressed() {
     if (!ship.isVisible()) {
       ship = new SpaceShip(width/2, height/2);
       entities = new ArrayList();
-      entities.add(new Asteroid(300, 300));
+      entities.add(new Asteroid(300, 300, false));
       sector = new Sector();
       break;
     }
