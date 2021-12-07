@@ -37,7 +37,7 @@ public class Entity {
     rotate(angle);
     beginShape();
     if (noFill) {
-      noFill();
+      fill(0,0,0,0);
       stroke(255);
     } else {
       fill(r,g,b);
