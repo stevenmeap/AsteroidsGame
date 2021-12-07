@@ -6,17 +6,6 @@ public class Asteroid extends Entity {
 
   private boolean isShard;
 
-
-
-  public Asteroid(int x, int y) {
-    super(x, y);
-    moveAngle = (double) (Math.random() * 360);
-    accelerationX += Math.cos(moveAngle) * 0.5;
-    accelerationY += Math.sin(moveAngle) * 0.5;
-    initAsteroid();
-    visible = true;
-    noFill = true;
-  }
   public Asteroid(int x, int y, boolean isShard) {
     super(x, y);
     moveAngle = (double) (Math.random() * 360);
