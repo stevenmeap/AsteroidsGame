@@ -43,7 +43,7 @@ private void updateShip() {
     update();
     ship.drift();
     text("Score: " + ship.getScore(), 40, 50);
-    text("Sector: " + entities.size(), 40, 20);
+    text("Sector: " + sector.getTitle(), 40, 20);
   } else {
     text("Ship Destroyed!", width/2 - 50, height/2);
     text("Final Score: " + ship.getScore(), width/2 - 50, height/2 - 100);
