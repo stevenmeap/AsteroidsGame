@@ -32,14 +32,7 @@ public class Alien extends Entity {
       accelerationX *= -1;
   }
 
-  //updates coordinates of PShape objects
-  public void drift() {
-    drawShape();
-    float inx = dead ? dx : x;
-    float iny = dead ? dy : y;
-    drawAddon(aCornersX, aCornersY, inx, iny);
-    this.shoot();
-  }
+
   
   //adds acceleration values to the alien
   public void move() {
@@ -103,6 +96,15 @@ public class Alien extends Entity {
     y += accelerationY;
     dx += dAccelerationX;
     dy += dAccelerationY;
+  }
+  
+    //updates coordinates of PShape objects
+  public void drift() {
+    drawShape();
+    float inx = dead ? dx : x;
+    float iny = dead ? dy : y;
+    drawAddon(aCornersX, aCornersY, inx, iny);
+    this.shoot();
   }
 
 
