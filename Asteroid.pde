@@ -1,7 +1,7 @@
 public class Asteroid extends Entity {
 
 
-  private double moveAngle; //determines trajectory of asteroid
+  private double moveAngle = 0.0; //determines trajectory of asteroid
 
 
   private boolean isShard;
@@ -13,7 +13,7 @@ public class Asteroid extends Entity {
     initAsteroid();
     visible = true;
     noFill = true;
-    moveAngle = (int) (Math.random()*100) < 50 ? (double) (Math.random() * 360): (double) -(Math.random() * 360);
+    moveAngle = (double) (Math.random()*100) < 50 ? (double) (Math.random() * 360): (double) -(Math.random() * 360);
     accelerationX += Math.cos(moveAngle) * 0.5;
     accelerationY += Math.sin(moveAngle) * 0.5;
   }
