@@ -38,7 +38,7 @@ public class Alien extends Entity {
     float inx = dead ? dx : x;
     float iny = dead ? dy : y;
     drawAddon(aCornersX, aCornersY, inx, iny);
-    shoot();
+    this.shoot();
   }
   
   //adds acceleration values to the alien
@@ -64,7 +64,7 @@ public class Alien extends Entity {
   }
 
   //shoots alien missiles
-  private void shoot() {
+  public void shoot() {
     if (dead)
       return;
     if (!shoot) {
