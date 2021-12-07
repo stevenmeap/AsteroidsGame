@@ -204,7 +204,7 @@ public class Alien extends Entity {
   //displays alien
   public void display() {
     pushMatrix();
-    noFill();
+    fill(0,0,0,0.0);
     stroke(255);
     drawShape();
     beginShape();
