@@ -104,8 +104,8 @@ private int getAsteroids() {
 }
 private int getAliens() {
   int aliens = 0;
-  for (int i = 0; i < entities.size(); i++) {
-    if (entities.get(i) instanceof Alien)
+  for (Entity entity : entities) {
+    if (entity instanceof Alien)
       aliens++;
   }
   return aliens;
