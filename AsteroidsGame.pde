@@ -87,7 +87,7 @@ public void updateShapes() {
       if (alien.isVisible()) {
         alien.display();
         alien.drift();
-        alien.shoot();
+        alien.fire();
       } else entities.remove(i);
     }
   }
