@@ -96,8 +96,8 @@ public void updateShapes() {
 
 private int getAsteroids() {
   int asteroids = 0;
-  for (int i = 0; i < entities.size(); i++) {
-    if (entities.get(i) instanceof Asteroid)
+  for (Entity entity : entities) {
+    if (entity instanceof Asteroid)
       asteroids++;
   }
   return asteroids;
