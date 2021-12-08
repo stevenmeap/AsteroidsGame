@@ -18,8 +18,7 @@ public void setup() {
 
 
 public void draw() {
-  asteroids = 0;
-  aliens = 0;
+ 
   sector.updateBackGround();
   entitycount = entities.size();
   updateShapes();
@@ -47,7 +46,7 @@ private void updateShip() {
 
     update();
     ship.drift();
-    text("Score: " + entitycount, 40, 50);
+    text("Score: " + asteroids, 40, 50);
     text("Sector: " + sector.getTitle(), 40, 20);
   } else {
     text("Ship Destroyed!", width/2 - 50, height/2);
