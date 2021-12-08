@@ -1,221 +1,176 @@
-public SpaceShip ship;
+public class Asteroid extends Entity {
 
 
-public ArrayList<Entity> entities;
-public static int time = 0;
-
-private Sector sector;
-
-public void setup() {
-  size(400, 400);
-  ship = new SpaceShip(width/2, height/2);
-  entities = new ArrayList();
-  sector = new Sector();
-}
+  private double moveAngle; //determines trajectory of asteroid
 
 
-public void draw() {
-  sector.updateBackGround();
-  spawnEnemies();
-  updateShapes();
-  update();
-  
-}
+  private boolean shard;
 
-
-private void updateShip() {
-  if (ship.isVisible()) {
-    if (ship.onCooldown()) {
-      ship.incrementCooldown(1);
-      if (ship.getCooldown() > 5) {
-        ship.setOnCooldown(false);
-        ship.setCooldown(0);
-      }
-    }
-    if (!ship.canJump()) {
-      ship.setJumpCooldown(ship.getJumpCooldown() + 1);
-      if (ship.getJumpCooldown() > 100) {
-        ship.setCanJump(true);
-        ship.setJumpCooldown(0);
-      }
-    }
-
-    update();
-    ship.drift();
-    text("asteroids: " + getAsteroids(), 40, 50);
-    text("Sector: " + sector.getTitle(), 40, 20);
-  } else {
-    text("Ship Destroyed!", width/2 - 50, height/2);
-    text("Final Score: " + ship.getScore(), width/2 - 50, height/2 - 100);
-    entities.clear();
-    time = 0;
-    return;
-  }
-}
-
-
-public void updateShapes() {
-
-  updateShip();
-  //loops through all game entities (excluding ship entity)
-  for (int i = 0; i < entities.size(); i++) {
-    //missiles
-    Entity e = entities.get(i);
-    if (e instanceof Missiles) {
-      Missiles missile = (Missiles) e;
-      if (missile.isVisible()) {
-        missile.drift();
-      } else entities.remove(i);
-    }
-    //asteroids
-    if (e instanceof Asteroid) {
-      Asteroid asteroid = (Asteroid) e;
-      if (asteroid.isVisible()) {
-        asteroid.updateAngle();
-        asteroid.drift();
-      } else entities.remove(i);
-    }
-    //aliens
-    if (e instanceof Alien) {
-      Alien alien = (Alien) e;
-      if (alien.isDead()) {
-        alien.deadMove();
-        alien.setDeadTime(alien.getDeathTime() + 1);
-        if (alien.getDeathTime() > 60)
-          alien.setVisible(false);
-      }
-      if (alien.isVisible()) {
-        alien.display();
-        alien.drift();
-        alien.fire();
-      } else entities.remove(i);
-    }
-  }
-}
-
-
-private int getAsteroids() {
-  int asteroids = 0;
-  for (Entity entity : entities) {
-    if (entity instanceof Asteroid)
-      asteroids++;
-  }
-  return asteroids;
-}
-private int getAliens() {
-  int aliens = 0;
-  for (Entity entity : entities) {
-    if (entity instanceof Alien)
-      aliens++;
-  }
-  return aliens;
-}
-public void spawnEnemies() {
-  int aliens = getAliens();
-  int asteroids = getAsteroids();
-  if (aliens < 1) {
-    if (time % 200 == 0  && time != 0) {
-      int corner = (int) (Math.random() * 4) + 1;
-      int bx = 100;
-      int by = 100;
-      switch(corner) {
-      case 1:
-        entities.add(new Alien((int) (bx), (int) (by)));
-        break;
-      case 2:
-        bx = 400;
-        entities.add(new Alien((int) (bx), (int) (by)));
-        break;
-      case 3:
-        by = 400;
-        Alien alien = new Alien((int) (bx), (int) (by));
-        entities.add(alien);
-
-        break;
-      case 4:
-        bx = 400;
-        by = 400;
-        entities.add(new Alien((int) (bx), (int) (by)));
-        break;
-      }
-    }
-    time++;
+  public Asteroid(int x, int y, boolean shard) {
+    super(x, y);
+    moveAngle = (double) (Math.random() * 360);
+    accelerationX += Math.cos(moveAngle) * 0.5;
+    accelerationY += Math.sin(moveAngle) * 0.5;
+    this.shard = shard;
+    initAsteroid();
+    noFill = true;
+    visible = true;
   }
 
-  if (asteroids < 10) {
-    int corner = (int) (Math.random() * 4 + 1);
-    int bx = 0;
-    int by = 0;
-    switch(corner) {
+  public void updateAngle() {
+    angle -= 0.01;
+  }
+
+  //Initializes Asteroid PShape object
+  private void initAsteroid() {
+    int shapeCase = (int) (Math.random() * 3) + 1;
+    switch (shapeCase) {
     case 1:
+      if (shard) {
+        shard1();
+      } else setCorners1();
+
       break;
     case 2:
-      bx = 400;
+      if (shard) {
+        shard2();
+      } else setCorners2();
       break;
     case 3:
-      by = 400;
-      break;
-    case 4:
-      bx = 400;
-      by = 400;
+      if (shard) {
+        shard1();
+      } else setCorners3();
+
       break;
     }
-    float rx =(int) Math.random() * 20;
-    float ry =(int) Math.random() * 20;
-    entities.add(new Asteroid((int) (rx + bx), (int) (ry + by), false));
   }
-}
-
-public void update() {
-  ship.update(rotCode);
-  ship.move(moveNum);
-}
-int moveNum = -1;
-int rotCode = -1;
 
 
 
-public void keyReleased() {
-  moveNum = -1;
-  rotCode = -1;
-}
-public void keyPressed() {
+  //Getters
+  public boolean isShard() {
+    return this.shard;
+  }
 
-  switch(keyCode) {
-  case 68:
-    moveNum = 1;
-    break;
-  case 65:
-    moveNum = 3;
-    break;
-  case 81:
-    rotCode = 81;
-    break; 
-  case 69:
-    rotCode = 69;
-    break;
-  case 32:
-    ship.shoot();
-    ship.setOnCooldown(true);
-    break;
-  case 82:
-    if (!ship.isVisible()) {
-      ship = new SpaceShip(width/2, height/2);
-      entities = new ArrayList();
-      entities.add(new Asteroid(300, 300, false));
-      sector = new Sector();
-      break;
-    }
-    break;
-  case 72:
-    if (ship.isVisible()) {
-      if (ship.canJump()) {
-        ship.teleport((int) (Math.random() * 100 + width/4), (int) (Math.random() * 100 + height / 4));
-        ship.setCanJump(false);
-        entities = new ArrayList();
-        sector = new Sector();
-      }
-    }
-    break;
+  public void setShard(boolean isShard) {
+    this.shard = isShard;
+  }
+
+
+
+
+
+  //Asteroid models
+  private void setCorners1() {
+    xCorners = new int[8];
+    yCorners = new int[8];
+
+    xCorners[0] = -15+(int) (Math.random() * 10);
+    yCorners[0] = -12 +(int) (Math.random() * 10);
+
+    xCorners[1] = -3+(int) (Math.random() * 10) ;
+    yCorners[1] = -15+(int) (Math.random() * 10);
+
+    xCorners[2] = 12+(int) (Math.random() * 10);
+    yCorners[2] = -12+(int) (Math.random() * 10);
+
+    xCorners[3] = 15+(int) (Math.random() * 10);
+    yCorners[3] = -3+(int) (Math.random() * 10);
+
+    xCorners[4] = 18+(int) (Math.random() * 10);
+    yCorners[4] = 3 +(int) (Math.random() * 10);
+
+    xCorners[5] = 3 +(int) (Math.random() * 10);
+    yCorners[5] = 6 +(int) (Math.random() * 10);
+
+    xCorners[6] = -15+(int) (Math.random() * 10);
+    yCorners[6] = 9+(int) (Math.random() * 10);
+
+    xCorners[7] = -21+(int) (Math.random() * 10);
+    yCorners[7] = 0 +(int) (Math.random() * 10);
+  }
+  //+(int) (Math.random() * 20) - 10;
+  private void setCorners2() {
+    xCorners = new int[6];
+    yCorners = new int[6];
+
+    xCorners[0] = -10;
+    yCorners[0] = -15;
+
+    xCorners[1] = 15;
+    yCorners[1] = -6;
+
+    xCorners[2] = 0;
+    yCorners[2] = 0;
+
+    xCorners[3] = 6;
+    yCorners[3] = 7;
+
+    xCorners[4] = -10;
+    yCorners[4] = 8;
+
+    xCorners[5] = -8;
+    yCorners[5] = 0;
+  }
+  private void setCorners3() {
+    xCorners = new int[6];
+    yCorners = new int[6];
+
+    xCorners[0] = -11;
+    yCorners[0] = -8;
+
+    xCorners[1] = 7;
+    yCorners[1] = -8;
+
+    xCorners[2] = 13;
+    yCorners[2] = 0;
+
+    xCorners[3] = 6;
+    yCorners[3] = 10;
+
+    xCorners[4] = -11;
+    yCorners[4] = 8;
+
+    xCorners[5] = -5;
+    yCorners[5] = 0;
+  }
+
+  private void shard1() {
+    xCorners = new int[5];
+    yCorners = new int[5];
+
+    xCorners[0] = -2;
+    yCorners[0] = -8;
+
+    xCorners[1] = 6;
+    yCorners[1] = -4;
+
+    xCorners[2] = 4;
+    yCorners[2] = 2;
+
+    xCorners[3] = -4;
+    yCorners[3] = 2;
+
+    xCorners[4] = -8;
+    yCorners[4] = 0;
+  }
+  private void shard2() {
+    xCorners = new int[5];
+    yCorners = new int[5];
+
+    xCorners[0] = -4;
+    yCorners[0] = -6;
+
+    xCorners[1] = 6;
+    yCorners[1] = -8;
+
+    xCorners[2] = 8;
+    yCorners[2] = 0;
+
+    xCorners[3] = 4;
+    yCorners[3] = 4;
+
+    xCorners[4] = -6;
+    yCorners[4] = 0;
   }
 }
