@@ -25,10 +25,10 @@ public class SpaceShip extends Entity {
 
 
   private void checkColliding() {
-    for (int i = 0; i < entities.size(); i++) {
-      if(!(entities.get(i) instanceof Asteroid))
+    for (Entity entity : entities) {
+      if(!(entity instanceof Asteroid))
       continue;
-      Asteroid asteroid = (Asteroid) entities.get(i);
+      Asteroid asteroid = (Asteroid) entity;
       if (colliding(asteroid, this)) {
         visible = false;
         asteroid.setVisible(false);
