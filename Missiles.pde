@@ -36,8 +36,8 @@ public class Missiles extends Entity {
     if (x > width || x < 0 || y < 0 ||y > height ) {
       visible = false;
     }
-    updateLists();
     if (visible) {
+      updateLists();
       x += accelerationX;
       y += accelerationY;
     }
@@ -48,24 +48,24 @@ public class Missiles extends Entity {
     if (x > width || y < 0 || y > height || x < 0)
       visible = false;
     if (spaceship != null) {
-      for (int i = 0; i < entities.size(); i++) {
-        if (entities.get(i) instanceof Alien) {
-          Alien alien = (Alien) entities.get(i);
+      for (Entity entity : entities) {
+        if (entity instanceof Alien) {
+          Alien alien = (Alien) entity;
           if (colliding(alien, this)) {
             if (visible) {
               alien.kill();
-             //visible = false;
+              visible = false;
               ship.setScore(ship.getScore() + 250);
             }
           }
         }
-        if (entities.get(i) instanceof Asteroid) {
-          Asteroid asteroid = (Asteroid) entities.get(i);
+        if (entity instanceof Asteroid) {
+          Asteroid asteroid = (Asteroid) entity;
           if (colliding(asteroid, this)) {
             if (!visible)
               return;
-            //visible = false;
-            //asteroid.setVisible(false);
+            visible = false;
+            asteroid.setVisible(false);
             if (!asteroid.isShard()) {
               entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
               entities.add(new Asteroid((int) (asteroid.getX() + Math.random() * 10), (int)( asteroid.getY()+ Math.random() * 10), true));
