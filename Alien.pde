@@ -63,7 +63,7 @@ public class Alien extends Entity {
   }
 
   //shoots alien missiles
-  public void shoot() {
+  public void fire() {
     if (dead)
       return;
     if (!shoot) {
