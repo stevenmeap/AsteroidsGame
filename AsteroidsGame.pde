@@ -16,10 +16,10 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-
+  spawnEnemies();
   updateShapes();
   update();
-  spawnEnemies();
+  
 }
 
 
@@ -42,7 +42,7 @@ private void updateShip() {
 
     update();
     ship.drift();
-    text("Score: " + ship.getScore(), 40, 50);
+    text("asteroids: " + getAsteroids(), 40, 50);
     text("Sector: " + sector.getTitle(), 40, 20);
   } else {
     text("Ship Destroyed!", width/2 - 50, height/2);
