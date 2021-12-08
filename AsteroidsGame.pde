@@ -3,9 +3,6 @@ public SpaceShip ship;
 
 public ArrayList<Entity> entities;
 public static int time = 0;
-public int entitycount;
-public int asteroids;
-publc int aliens;
 
 private Sector sector;
 
@@ -18,9 +15,8 @@ public void setup() {
 
 
 public void draw() {
- 
   sector.updateBackGround();
-  entitycount = entities.size();
+
   updateShapes();
   update();
   spawnEnemies();
@@ -46,7 +42,7 @@ private void updateShip() {
 
     update();
     ship.drift();
-    text("Score: " + asteroids, 40, 50);
+    text("Score: " + ship.getScore(), 40, 50);
     text("Sector: " + sector.getTitle(), 40, 20);
   } else {
     text("Ship Destroyed!", width/2 - 50, height/2);
@@ -62,7 +58,7 @@ public void updateShapes() {
 
   updateShip();
   //loops through all game entities (excluding ship entity)
-  for (int i = 0; i < entitycount; i++) {
+  for (int i = 0; i < entities.size(); i++) {
     //missiles
     Entity e = entities.get(i);
     if (e instanceof Missiles) {
@@ -77,7 +73,6 @@ public void updateShapes() {
       if (asteroid.isVisible()) {
         asteroid.updateAngle();
         asteroid.drift();
-        asteroids++;
       } else entities.remove(i);
     }
     //aliens
@@ -93,15 +88,31 @@ public void updateShapes() {
         alien.display();
         alien.drift();
         alien.fire();
-        aliens++;
       } else entities.remove(i);
     }
   }
 }
 
 
-
+private int getAsteroids() {
+  int asteroids = 0;
+  for (int i = 0; i < entities.size(); i++) {
+    if (entities.get(i) instanceof Asteroid)
+      asteroids++;
+  }
+  return asteroids;
+}
+private int getAliens() {
+  int aliens = 0;
+  for (int i = 0; i < entities.size(); i++) {
+    if (entities.get(i) instanceof Alien)
+      aliens++;
+  }
+  return aliens;
+}
 public void spawnEnemies() {
+  int aliens = getAliens();
+  int asteroids = getAsteroids();
   if (aliens < 1) {
     if (time % 200 == 0  && time != 0) {
       int corner = (int) (Math.random() * 4) + 1;
