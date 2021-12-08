@@ -3,6 +3,7 @@ public SpaceShip ship;
 
 public ArrayList<Entity> entities;
 public static int time = 0;
+public int entitycount;
 
 private Sector sector;
 
@@ -16,7 +17,7 @@ public void setup() {
 
 public void draw() {
   sector.updateBackGround();
-
+  entitycount = entities.size();
   updateShapes();
   update();
   spawnEnemies();
@@ -42,7 +43,7 @@ private void updateShip() {
 
     update();
     ship.drift();
-    text("Score: " + entities.size(), 40, 50);
+    text("Score: " + entitycount, 40, 50);
     text("Sector: " + sector.getTitle(), 40, 20);
   } else {
     text("Ship Destroyed!", width/2 - 50, height/2);
@@ -58,7 +59,7 @@ public void updateShapes() {
 
   updateShip();
   //loops through all game entities (excluding ship entity)
-  for (int i = 0; i < entities.size(); i++) {
+  for (int i = 0; i < entitycount; i++) {
     //missiles
     Entity e = entities.get(i);
     if (e instanceof Missiles) {
@@ -96,7 +97,7 @@ public void updateShapes() {
 
 private int getAsteroids() {
   int asteroids = 0;
-  for (int i = 0; i < entities.size(); i++) {
+  for (int i = 0; i < entitycount; i++) {
     if (entities.get(i) instanceof Asteroid)
       asteroids++;
   }
@@ -104,7 +105,7 @@ private int getAsteroids() {
 }
 private int getAliens() {
   int aliens = 0;
-  for (int i = 0; i < entities.size(); i++) {
+  for (int i = 0; i < entitycount; i++) {
     if (entities.get(i) instanceof Alien)
       aliens++;
   }
