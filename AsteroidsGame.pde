@@ -4,6 +4,8 @@ public SpaceShip ship;
 public ArrayList<Entity> entities;
 public static int time = 0;
 public int entitycount;
+public int asteroids;
+publc int aliens;
 
 private Sector sector;
 
@@ -16,6 +18,8 @@ public void setup() {
 
 
 public void draw() {
+  asteroids = 0;
+  aliens = 0;
   sector.updateBackGround();
   entitycount = entities.size();
   updateShapes();
@@ -74,6 +78,7 @@ public void updateShapes() {
       if (asteroid.isVisible()) {
         asteroid.updateAngle();
         asteroid.drift();
+        asteroids++;
       } else entities.remove(i);
     }
     //aliens
@@ -89,31 +94,15 @@ public void updateShapes() {
         alien.display();
         alien.drift();
         alien.fire();
+        aliens++;
       } else entities.remove(i);
     }
   }
 }
 
 
-private int getAsteroids() {
-  int asteroids = 0;
-  for (int i = 0; i < entitycount; i++) {
-    if (entities.get(i) instanceof Asteroid)
-      asteroids++;
-  }
-  return asteroids;
-}
-private int getAliens() {
-  int aliens = 0;
-  for (int i = 0; i < entitycount; i++) {
-    if (entities.get(i) instanceof Alien)
-      aliens++;
-  }
-  return aliens;
-}
+
 public void spawnEnemies() {
-  int aliens = getAliens();
-  int asteroids = getAsteroids();
   if (aliens < 1) {
     if (time % 200 == 0  && time != 0) {
       int corner = (int) (Math.random() * 4) + 1;
