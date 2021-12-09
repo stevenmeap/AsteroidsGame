@@ -3,11 +3,13 @@ public SpaceShip ship;
 
 public ArrayList<Entity> entities;
 public int maxasteroids;
+public int highscore;
 public static int time = 0;
 
 private Sector sector;
 
 public void setup() {
+  highscore = 0;
   size(400, 400);
   ship = new SpaceShip(width/2, height/2);
   entities = new ArrayList();
@@ -34,21 +36,37 @@ private void updateShip() {
         ship.setCooldown(0);
       }
     }
-    if (!ship.canJump()) {
+    if (!ship.canJump() && !ship.isJumping()) {
       ship.setJumpCooldown(ship.getJumpCooldown() + 1);
       if (ship.getJumpCooldown() > 100) {
         ship.setCanJump(true);
         ship.setJumpCooldown(0);
       }
     }
+    if(ship.isJumping()){
+      ship.incrementTextTime(1);
+      if(ship.getTextTime() > 100){
+        ship.setJumping(false);
+        ship.incrementTextTime(-100);
+        ship.teleport((int) (Math.random() * 100 + width/4), (int) (Math.random() * 100 + height / 4));
+        sector = new Sector();
+      }else{
+        entities.clear();
+        ship.talk();
+      }
+    }
 
     update();
     ship.drift();
     text("Score: " + ship.getScore(), 40, 50);
+    text("Highscore: " + highscore, 40, 30);
     text("Sector: " + sector.getTitle(), 40, 20);
   } else {
+    if(ship.getScore() > highscore)
+      highscore = ship.getScore();
     text("Ship Destroyed!", width/2 - 50, height/2);
     text("Final Score: " + ship.getScore(), width/2 - 50, height/2 - 100);
+    text("Highscore: " + highscore, width/2 - 50, height/2 - 120);
     entities.clear();
     time = 0;
     return;
@@ -113,6 +131,9 @@ private int getAliens() {
   return aliens;
 }
 public void spawnEnemies() {
+  if(ship.isJumping())
+    return;
+  
   int aliens = getAliens();
   int asteroids = getAsteroids();
   if (aliens < 1 && maxasteroids < 30) {
@@ -204,7 +225,6 @@ public void keyPressed() {
     if (!ship.isVisible()) {
       ship = new SpaceShip(width/2, height/2);
       entities = new ArrayList();
-      entities.add(new Asteroid(300, 300, false));
       sector = new Sector();
       maxasteroids = 10;
       break;
@@ -213,10 +233,10 @@ public void keyPressed() {
   case 72:
     if (ship.isVisible()) {
       if (ship.canJump()) {
-        ship.teleport((int) (Math.random() * 100 + width/4), (int) (Math.random() * 100 + height / 4));
+        ship.setJumping(true);
         ship.setCanJump(false);
         entities = new ArrayList();
-        sector = new Sector();
+        
       }
     }
     break;
