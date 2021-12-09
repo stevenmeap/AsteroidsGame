@@ -1,6 +1,7 @@
 public class Sector {
   private int r, g, b;
   private boolean cometField;
+  private boolean asteroidfield;
   private Star[] stars;
   private String name;
   //stores speed for moving stars, only initialized if cometfield == true
@@ -8,11 +9,15 @@ public class Sector {
   public Sector() {
     setColor();
 
-    setMovingStars();
-
+    setSpecials();
+    maxasteroids = 10;
     if (cometField) {
       speed = new HashMap();
       name = name + " comet field";
+    }
+    if(asteroidfield){
+      name = name + " asteroid field";
+      maxasteroids = 30;
     }
     spawnStars();
   }
@@ -33,8 +38,11 @@ public class Sector {
   }
 
   //determines whether sector will be a cometfield or not
-  private void setMovingStars() {
-    cometField = (int) (Math.random() * 100) < 35;
+  private void setSpecials() {
+    int r = (int) (Math.random() * 100);
+    
+    asteroidfield = r < 17;
+    cometField = (!asteroidfield && r < 35);
   }
 
   //sets the color and the name of the sector
