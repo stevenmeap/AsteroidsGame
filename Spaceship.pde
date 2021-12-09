@@ -3,14 +3,17 @@ public class SpaceShip extends Entity {
   //rotation
 
 
-  
+
   private int score;
 
   private long cooldown = 0; // time on shooting cooldown
   private boolean cd;
-  
+
   private boolean jump;
   private long jumpcooldown;
+
+  private boolean jumping;
+  private int texttime;
 
   public SpaceShip(int x, int y) {
     super(x, y);
@@ -19,6 +22,7 @@ public class SpaceShip extends Entity {
     visible = true;
     score = 0;
     jump = true;
+    jumping = false;
   }
 
 
@@ -26,8 +30,8 @@ public class SpaceShip extends Entity {
 
   private void checkColliding() {
     for (Entity entity : entities) {
-      if(!(entity instanceof Asteroid))
-      continue;
+      if (!(entity instanceof Asteroid))
+        continue;
       Asteroid asteroid = (Asteroid) entity;
       if (colliding(asteroid, this)) {
         visible = false;
@@ -59,14 +63,30 @@ public class SpaceShip extends Entity {
       accelerationX -= Math.cos(angle) * 0.05;
     }
   }
-   
+
   //sets ship location to inputed x, y values and resets acceleratiion valuezs
-  public void teleport(int x, int y){
+  public void teleport(int x, int y) {
     this.x = x;
     this.y = y;
     accelerationX = 0;
     accelerationY = 0;
     angle = 0;
+  }
+
+  public void talk() {
+    float ty = y;
+    float tx = x;
+    if (y + 10 > height)
+      ty = y - 10;
+    else ty = y + 10;
+
+    if (x + 200 > width)
+      tx = x - 120;
+    else tx = x + 20;
+    pushMatrix();
+    fill(255);
+    text("punch it chewie!", tx, ty);
+    popMatrix();
   }
 
   //initializes the ship PShape object
@@ -79,7 +99,7 @@ public class SpaceShip extends Entity {
     yCorners[1] = 0;
     xCorners[2] = -15;
     yCorners[2] = -10;
-   // buildShape();
+    // buildShape();
   }
 
   // builds the PShape object
@@ -103,46 +123,56 @@ public class SpaceShip extends Entity {
   public float getAccelerationY() {
     return accelerationY;
   }
-  
+
   //getters and setters for missile cooldown
-  public long getCooldown(){
+  public long getCooldown() {
     return cooldown;
   }
-  public void setCooldown(long cd){
+  public void setCooldown(long cd) {
     cooldown = cd;
   }
-  public void incrementCooldown(int increment){
+  public void incrementCooldown(int increment) {
     cooldown += increment;
   }
-  public boolean onCooldown(){
+  public boolean onCooldown() {
     return cd;
   }
-  public void setOnCooldown(boolean cd){
+  public void setOnCooldown(boolean cd) {
     this.cd = cd;
   }
-  
+
   //getters and setters for ship score
-  public int getScore(){
+  public int getScore() {
     return score;
   }
-  public void setScore(int score){
+  public void setScore(int score) {
     this.score = score;
   }
-  
+
   //getters and setters for hyperspace cooldown values
-  public boolean canJump(){
+  public boolean canJump() {
     return jump;
   }
-  public long getJumpCooldown(){
+  public long getJumpCooldown() {
     return jumpcooldown;
   }
-  public void setCanJump(boolean jump){
+  public void setCanJump(boolean jump) {
     this.jump = jump;
   }
-  public void setJumpCooldown(long cd){
+  public void setJumpCooldown(long cd) {
     jumpcooldown = cd;
   }
-
+  public boolean isJumping() {
+    return jumping;
+  }
+  public void setJumping(boolean jumping) {
+    this.jumping = jumping;
+  }
+  public int getTextTime() {
+    return texttime;
+  }
+  public void incrementTextTime(int increment) {
+    texttime += increment;
+  }
   //displays the shape
-
 }
