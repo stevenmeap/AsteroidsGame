@@ -2,6 +2,7 @@ public SpaceShip ship;
 
 
 public ArrayList<Entity> entities;
+public int maxasteroids;
 public static int time = 0;
 
 private Sector sector;
@@ -11,6 +12,7 @@ public void setup() {
   ship = new SpaceShip(width/2, height/2);
   entities = new ArrayList();
   sector = new Sector();
+  maxasteroids = 10;
 }
 
 
@@ -113,7 +115,7 @@ private int getAliens() {
 public void spawnEnemies() {
   int aliens = getAliens();
   int asteroids = getAsteroids();
-  if (aliens < 1) {
+  if (aliens < 1 && maxasteroids < 30) {
     if (time % 200 == 0  && time != 0) {
       int corner = (int) (Math.random() * 4) + 1;
       int bx = 100;
@@ -142,7 +144,7 @@ public void spawnEnemies() {
     time++;
   }
 
-  if (asteroids < 10) {
+  if (asteroids < maxasteroids) {
     int corner = (int) (Math.random() * 4 + 1);
     int bx = 0;
     int by = 0;
@@ -204,6 +206,7 @@ public void keyPressed() {
       entities = new ArrayList();
       entities.add(new Asteroid(300, 300, false));
       sector = new Sector();
+      maxasteroids = 10;
       break;
     }
     break;
