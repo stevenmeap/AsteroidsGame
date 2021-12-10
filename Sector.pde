@@ -4,6 +4,7 @@ public class Sector {
   private boolean asteroidfield;
   private Star[] stars;
   private String name;
+  private int maxasteroids;
   //stores speed for moving stars, only initialized if cometfield == true
   private HashMap<Star, Integer> speed;
   public Sector() {
@@ -105,5 +106,12 @@ public class Sector {
   }
   public void clearStars() {
     stars = new Star[0];
+  }
+  
+  public int getMaxAsteroids(){
+    return maxasteroids;
+  }
+  public void setMaxAsteroids(int maxasteroids){
+    this.maxasteroids = maxasteroids;
   }
 }
