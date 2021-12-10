@@ -72,6 +72,8 @@ public class SpaceShip extends Entity {
     accelerationY = 0;
     angle = 0;
   }
+  
+  public String message;
 
   public void talk() {
     float ty = y;
@@ -85,7 +87,7 @@ public class SpaceShip extends Entity {
     else tx = x + 20;
     pushMatrix();
     fill(255);
-    text("punch it chewie!", tx, ty);
+    text(message, tx, ty);
     popMatrix();
   }
 
@@ -114,6 +116,18 @@ public class SpaceShip extends Entity {
       angle -= 0.1;
       break;
     }
+  }
+  
+  public String[] messages(){
+    String[] messages = new String[4];
+    messages[0] = "punch it chewie!";
+    messages[1] = "get us out of here!";
+    messages[2] = "warm up the hyperdrive!";
+    messages[3] = "hold on tight!";
+    return messages;
+  }
+  public String getRandomMessage(){
+    return (messages()[(int) (Math.random() * 4)]);
   }
 
   //getters for ship acceleration
